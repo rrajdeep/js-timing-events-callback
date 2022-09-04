@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch - Timing Events and Callbacks - Assignment</title>
+    <!-- External css -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Main division -->
+    <div class="main">
+        <div>
+            <h2>STOPWATCH</h2>
+        </div>
+        <!-- Timer display division -->
+        <div class="timer-div">
+            <h1><span id="minutes">00</span>:<span id="seconds">00</span></h1>
+        </div>
+        <!-- Start, stop and reset buttons -->
+        <div>
+            <button class="button" id="btnStart">Start</button>
+            <button class="button" id="btnStop">Stop</button>
+            <button class="button" id="btnReset">Reset</button>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            // grabbing required elements:
+            var minutes = document.getElementById('minutes');
+            var seconds = document.getElementById('seconds');
+            var startButton = document.getElementById('btnStart');
+            var stoptButton = document.getElementById('btnStop');
+            var resetButton = document.getElementById('btnReset');
+
+            // declaring required variables:
+            var min = 00;
+            var sec = 00;
+            var interval;
+
+            // calling functions on button clicks:
+            startButton.onclick = startTimer;
+            stoptButton.onclick = stopTimer;
+            resetButton.onclick = resetTimer;
+
+            // function definitions:
+            // start timer function
+            function startTimer() {
+                clearInterval(interval);
+                interval = setInterval(myInterval, 1000)
+            }
+
+            function myInterval() {
+                sec++;
+                if (sec <= 9) {
+                    seconds.innerHTML = "0" + sec;
+                }
+                if (sec > 9) {
+                    seconds.innerHTML = sec;
+                }
+                if (sec > 59) {
+                    min++;
+                    sec = 0;
+                    seconds.innerHTML = "00"
+                    if (min <= 9) {
+                        minutes.innerHTML = "0" + min;
+                    }
+                    if (min > 9) {
+                        minutes.innerHTML = min;
+                    }
+                }
+            }
+
+            // Stop timer function
+            function stopTimer() {
+                clearInterval(interval);
+            }
+
+            // Reset timer function
+            function resetTimer() {
+                clearInterval(interval);
+                min = 00;
+                sec = 00;
+                minutes.innerHTML = "00";
+                seconds.innerHTML = "00";
+            }
+        }
+    </script>
+</body>
+
+</html>
